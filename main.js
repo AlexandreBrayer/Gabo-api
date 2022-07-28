@@ -1,9 +1,9 @@
+require('dotenv').config()
 const bodyParser = require("body-parser")
 const express = require('express')
 const cors = require('cors');
 const path = require('path')
 const app = express()
-require('dotenv').config()
 const port = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({
@@ -12,9 +12,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cors())
 
+app.use(express.static('public'));
+
 app.route('/*')
     .get(function(req, res) {
-        res.sendFile(path.join(__dirname + '/public/index.html'));
+        res.sendFile(path.join(__dirname + '/public/index.html'), { extensions: ["js"] });
     });
 
 app.listen(port, () => {
