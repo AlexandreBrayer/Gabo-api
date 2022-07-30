@@ -33,14 +33,14 @@ router.post('/register', async(req, res) => {
 })
 
 router.post('/login', async(req, res) => {
-    const { name, email, password } = req.body
+    const { name, password } = req.body
     try {
         //find by name or email
         const user = await User.findOne({
             $or: [{
-                name
+                name: name
             }, {
-                email
+                email: name
             }]
         })
         if (!user) {
