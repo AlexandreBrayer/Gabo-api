@@ -1,4 +1,6 @@
 require('dotenv').config()
+const database = require('./database')
+database.connect()
 const bodyParser = require("body-parser")
 const express = require('express')
 const cors = require('cors');
@@ -11,6 +13,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(cors())
+
+const userRoute = require('./routes/user')
+app.use('/user', userRoute)
 
 app.use(express.static('public'));
 
