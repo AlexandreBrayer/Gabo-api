@@ -98,4 +98,30 @@ router.post('/tokenLogin', async(req, res) => {
     }
 })
 
+router.get('/', async(req, res) => {
+    const token = req.headers.authorization
+    try {
+        const user = await User.findOne({
+            token
+        })
+        if (!user) {
+            res.status(400).send({
+                success: false,
+                message: 'User not found'
+            })
+        } else {
+            res.status(200).send({
+                success: true,
+                user: user
+            })
+        }
+    } catch (err) {
+        res.status(400).send({
+            success: false,
+            message: err.message
+        })
+    }
+
+})
+
 module.exports = router;
