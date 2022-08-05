@@ -124,4 +124,47 @@ router.get('/', async(req, res) => {
 
 })
 
+router.get('/all', async(req, res) => {
+    try {
+        const users = await User.find({})
+        res.status(200).send({
+            success: true,
+            users
+        })
+    } catch (err) {
+        res.status(400).send({
+            success: false,
+            message: err.message
+        })
+    }
+})
+
+router.get('/search', async(req, res) => {
+    const { name } = req.query
+    try {
+        const users = await User.find({
+            name: {
+                $regex: name,
+                $options: 'i'
+            }
+        })
+        const users2 = users.map(user => {
+            return {
+                name: user.name,
+                _id: user._id
+            }
+        })
+        res.status(200).send({
+            success: true,
+            users: users2
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(400).send({
+            success: false,
+            message: err.message
+        })
+    }
+})
+
 module.exports = router;

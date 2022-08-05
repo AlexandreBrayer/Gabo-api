@@ -21,7 +21,7 @@ const RoundModel = mongoose.Schema({
         default: []
     },
     contreGabo: {
-        type: ObjectId,
+        type: [ObjectId],
         ref: 'User',
         default: null
     },
@@ -30,11 +30,16 @@ const RoundModel = mongoose.Schema({
         ref: 'User',
         default: []
     },
-    downhill: {
+    lowDownhill: {
         type: [ObjectId],
         ref: 'User',
         default: []
-    }
+    },
+    highDownhill: {
+        type: [ObjectId],
+        ref: 'User',
+        default: []
+    },
 
 }).set('toJSON', {
     virtuals: true

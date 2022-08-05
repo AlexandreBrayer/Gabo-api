@@ -18,8 +18,8 @@ const GameModel = mongoose.Schema({
         default: null
     },
     scores: {
-        type: [Object],
-        default: []
+        type: Object,
+        default: {}
     },
     rounds: {
         type: [ObjectId],
