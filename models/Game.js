@@ -4,26 +4,26 @@ const { ObjectId } = require('bson');
 const GameModel = mongoose.Schema({
     players: {
         type: [ObjectId],
-        ref: 'User',
+        ref: 'Users',
         default: []
     },
     winner: {
         type: ObjectId,
-        ref: 'User',
+        ref: 'Users',
         default: null
     },
-    looser: {
+    loser: {
         type: ObjectId,
-        ref: 'User',
+        ref: 'Users',
         default: null
     },
     scores: {
-        type: Object,
+        type: [Object],
         default: {}
     },
     rounds: {
         type: [ObjectId],
-        ref: 'Round',
+        ref: 'Rounds',
         default: []
     }
 

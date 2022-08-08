@@ -17,6 +17,11 @@ app.use(cors())
 const userRoute = require('./routes/user')
 app.use('/user', userRoute)
 
+const roundRoute = require('./routes/rounds')
+app.use('/rounds', roundRoute)
+
+const gameRoute = require('./routes/game')
+app.use('/game', gameRoute)
 app.use(express.static('public'));
 
 app.route('/*')
