@@ -40,14 +40,46 @@ router.get('/mygames', async(req, res) => {
     try {
         const games = await Game
             .find({ _id: { $in: user.games } })
+            .sort({ date: -1 })
             .populate('players')
             .populate('rounds')
             .populate('winner')
             .populate('loser')
             .exec()
+
         res.status(200).send({
             success: true,
             games: games
+        })
+    } catch (err) {
+        res.status(400).send({
+            success: false,
+            message: err.message
+        })
+    }
+})
+
+router.get('/:id', async(req, res) => {
+    const user = await User.findOne({ token: req.headers.authorization })
+    if (!user) {
+        res.status(400).send({
+            success: false,
+            message: 'User not found'
+        })
+        return
+    }
+    try {
+        const game = await Game
+            .findOne({ _id: req.params.id })
+            .populate('players')
+            .populate('rounds')
+            .populate('winner')
+            .populate('loser')
+            .exec()
+
+        res.status(200).send({
+            success: true,
+            game: game
         })
     } catch (err) {
         res.status(400).send({

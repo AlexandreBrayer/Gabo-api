@@ -25,6 +25,10 @@ const GameModel = mongoose.Schema({
         type: [ObjectId],
         ref: 'Rounds',
         default: []
+    },
+    timestamp: {
+        type: Number,
+        default: Date.now()
     }
 
 }).set('toJSON', {
