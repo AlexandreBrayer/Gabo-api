@@ -41,7 +41,7 @@ router.get('/mygames', async(req, res) => {
         const games = await Game
             .find({ _id: { $in: user.games } })
             .sort({ date: -1 })
-            .populate('players')
+            .populate('players', '-password -token -games -__v -email')
             .populate('rounds')
             .populate('winner')
             .populate('loser')
@@ -71,7 +71,7 @@ router.get('/:id', async(req, res) => {
     try {
         const game = await Game
             .findOne({ _id: req.params.id })
-            .populate('players')
+            .populate('players', '-password -token -games -__v -email')
             .populate('rounds')
             .populate('winner')
             .populate('loser')
