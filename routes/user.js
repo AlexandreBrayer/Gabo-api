@@ -147,16 +147,10 @@ router.get('/search', async(req, res) => {
                 $regex: name,
                 $options: 'i'
             }
-        })
-        const users2 = users.map(user => {
-            return {
-                name: user.name,
-                _id: user._id
-            }
-        })
+        }).select('-password -token -games -__v -email')
         res.status(200).send({
             success: true,
-            users: users2
+            users: users
         })
     } catch (err) {
         console.log(err)
