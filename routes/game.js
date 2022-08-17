@@ -40,7 +40,7 @@ router.get('/mygames', async(req, res) => {
     try {
         const games = await Game
             .find({ _id: { $in: user.games } })
-            .sort({ date: -1 })
+            .sort({ timestamp: -1 })
             .populate('players', '-password -token -games -__v -email')
             .populate('rounds')
             .populate('winner')
@@ -88,18 +88,5 @@ router.get('/:id', async(req, res) => {
         })
     }
 })
-
-//dev only
-router.get('/clearGames', async(req, res) => {
-    const users = await User.find({})
-    users.forEach(async(user) => {
-        await User.updateOne({ _id: user._id }, { $set: { games: [] } })
-    })
-    await Game.deleteMany({})
-    res.status(200).send({
-        success: true,
-        message: 'Games cleared'
-    })
-});
 
 module.exports = router
