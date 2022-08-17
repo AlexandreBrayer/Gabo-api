@@ -103,7 +103,7 @@ router.get('/', async(req, res) => {
     try {
         const user = await User.findOne({
             token
-        }).select('-password -token -games -__v -email')
+        }).select('-password -token -__v -email')
         if (!user) {
             res.status(400).send({
                 success: false,
@@ -126,7 +126,7 @@ router.get('/', async(req, res) => {
 
 router.get('/all', async(req, res) => {
     try {
-        const users = await User.find({}).select('-password -token -games -__v -email')
+        const users = await User.find({}).select('-password -token -__v -email')
         res.status(200).send({
             success: true,
             users

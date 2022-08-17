@@ -13,6 +13,7 @@ router.post('/', async(req, res) => {
         return
     }
     const { game } = req.body
+    game.timestamp = Date.now()
     try {
         const newGame = await Game.create(game)
         await User.updateMany({ _id: { $in: game.players } }, { $push: { games: newGame._id } })
@@ -41,7 +42,7 @@ router.get('/mygames', async(req, res) => {
         const games = await Game
             .find({ _id: { $in: user.games } })
             .sort({ timestamp: -1 })
-            .populate('players', '-password -token -games -__v -email')
+            .populate('players', '-password -token -__v -email')
             .populate('rounds')
             .populate('winner')
             .populate('loser')

@@ -28,7 +28,7 @@ const GameModel = mongoose.Schema({
     },
     timestamp: {
         type: Number,
-        default: Date.now()
+        required: true
     }
 
 }).set('toJSON', {
