@@ -39,6 +39,16 @@ function numberOfHighDownhills(id, rounds) {
     return highDownhills.length
 }
 
+function totalScore(id, rounds) {
+    const scores = rounds.filter(round => round.scores[id])
+    return scores.reduce((acc, curr) => acc + curr.scores[id], 0)
+}
+
+function avgScorePerGame(id, games) {
+    const scores = games.map(game => game.scores[game.scores.length - 1][id])
+    return scores.reduce((acc, curr) => acc + curr, 0) / scores.length
+}
+
 router.get('/:id', async(req, res) => {
     const { id } = req.params
     const user = await User.findById(id)
@@ -75,7 +85,10 @@ router.get('/:id', async(req, res) => {
             lowDownhills: numberOfLowDownhills(id, allRounds),
             highDownhills: numberOfHighDownhills(id, allRounds),
             totalGames: games.length,
-            totalRounds: allRounds.length
+            totalRounds: allRounds.length,
+            totalScore: totalScore(id, allRounds),
+            averageScore: totalScore(id, allRounds) / allRounds.length,
+            averageScorePerGame: avgScorePerGame(id, games)
         }
     })
 })
