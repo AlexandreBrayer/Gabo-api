@@ -22,6 +22,10 @@ app.use('/rounds', roundRoute)
 
 const gameRoute = require('./routes/game')
 app.use('/game', gameRoute)
+
+const statsRoute = require('./routes/stats')
+app.use('/stats', statsRoute)
+
 app.use(express.static('public'));
 
 app.route('/*')
