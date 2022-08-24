@@ -44,8 +44,8 @@ router.get('/mygames', async(req, res) => {
             .sort({ timestamp: -1 })
             .populate('players', '-password -token -__v -email')
             .populate('rounds')
-            .populate('winner')
-            .populate('loser')
+            .populate('winner', '-password -token -__v -email')
+            .populate('loser', '-password -token -__v -email')
             .exec()
 
         res.status(200).send({
@@ -74,8 +74,8 @@ router.get('/:id', async(req, res) => {
             .findOne({ _id: req.params.id })
             .populate('players', '-password -token -games -__v -email')
             .populate('rounds')
-            .populate('winner')
-            .populate('loser')
+            .populate('winner', '-password -token -__v -email')
+            .populate('loser', '-password -token -__v -email')
             .exec()
 
         res.status(200).send({
