@@ -4,7 +4,7 @@ const User = require('../models/User')
 var sha256 = require('js-sha256')
 
 function createOneTimePassword() {
-    return Math.floor(Math.random() * 1000000).toString()
+    return Math.floor(Math.random() * 100000).toString().padStart(5, '0')
 }
 
 router.post('/', async(req, res) => {
