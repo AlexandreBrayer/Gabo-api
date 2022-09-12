@@ -26,6 +26,9 @@ app.use('/api/game', gameRoute)
 const statsRoute = require('./routes/stats')
 app.use('/api/stats', statsRoute)
 
+const guestRoute = require('./routes/guest')
+app.use('/api/guest', guestRoute)
+
 app.use(express.static('public'));
 
 app.route('/*')
