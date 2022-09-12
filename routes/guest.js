@@ -7,6 +7,10 @@ function createOneTimePassword() {
     return Math.floor(Math.random() * 100000).toString().padStart(5, '0')
 }
 
+function genToken() {
+    return Math.random().toString(36).substr(2) + Math.random().toString(36).substr(2)
+}
+
 router.post('/', async(req, res) => {
     const { name, email } = req.body
     const otp = createOneTimePassword()
@@ -47,6 +51,7 @@ router.post('/toUser', async(req, res) => {
         } else {
             user.password = sha256(password)
             user.type = 'user'
+            user.token = genToken()
             await user.save()
             res.status(200).send({
                 success: true,
