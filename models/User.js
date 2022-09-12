@@ -23,6 +23,10 @@ const UserModel = mongoose.Schema({
     },
     token: {
         type: String,
+    },
+    type: {
+        type: String,
+        default: 'user'
     }
 }).set('toJSON', {
     virtuals: true
