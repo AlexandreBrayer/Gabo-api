@@ -42,6 +42,10 @@ router.post('/login', async(req, res) => {
                 message: 'User not found'
             })
         } else {
+            if (!user.token) {
+                user.token = genToken()
+                await user.save()
+            }
             if (user.password === sha256(password)) {
                 res.status(200).send({
                     success: true,
