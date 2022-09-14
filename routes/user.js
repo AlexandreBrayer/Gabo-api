@@ -140,11 +140,12 @@ router.get('/search', async(req, res) => {
     const { name } = req.query
     try {
         const users = await User.find({
-            name: {
-                $regex: name,
-                $options: 'i'
-            }
-        }).select('-password -token -games -__v -email')
+                name: {
+                    $regex: name,
+                    $options: 'i'
+                }
+            }).select('-password -token -games -__v -email')
+            .sort({ name: 1 })
         res.status(200).send({
             success: true,
             users: users
