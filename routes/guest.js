@@ -18,7 +18,8 @@ router.post('/', async(req, res) => {
         name,
         email,
         type: 'guest',
-        password: sha256(otp)
+        password: sha256(otp),
+        token: genToken()
     })
     try {
         await user.save()
