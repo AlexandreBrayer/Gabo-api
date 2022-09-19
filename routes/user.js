@@ -146,6 +146,7 @@ router.get('/search', async(req, res) => {
                 }
             }).select('-password -token -games -__v -email')
             .sort({ name: 1 })
+            .limit(10)
         res.status(200).send({
             success: true,
             users: users
