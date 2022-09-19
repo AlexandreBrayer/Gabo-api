@@ -30,6 +30,7 @@ router.post('/', async(req, res) => {
 });
 
 router.get('/mygames', async(req, res) => {
+    const page = req.query.page || 0
     const user = await User.findOne({ token: req.headers.authorization })
     if (!user) {
         res.status(400).send({
@@ -40,7 +41,7 @@ router.get('/mygames', async(req, res) => {
     }
     try {
         const games = await Game
-            .find({ _id: { $in: user.games } })
+            .find({ _id: { $in: user.games } }, null, { skip: page * 10, limit: 10 })
             .sort({ timestamp: -1 })
             .populate('players', '-password -token -__v -email')
             .populate('rounds')
