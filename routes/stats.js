@@ -107,8 +107,8 @@ router.get(['/', '/:id'], async(req, res) => {
             totalGames: games.length,
             totalRounds: allRounds.length,
             totalScore: totalScore(id, allRounds),
-            averageScore: totalScore(id, allRounds) / allRounds.length,
-            averageScorePerGame: avgScorePerGame(id, games)
+            averageScore: totalScore(id, allRounds) / allRounds.length || 0,
+            averageScorePerGame: avgScorePerGame(id, games) || 0
         }
     })
 })
