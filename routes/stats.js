@@ -49,9 +49,29 @@ function avgScorePerGame(id, games) {
     return scores.reduce((acc, curr) => acc + curr, 0) / scores.length
 }
 
-router.get('/:id', async(req, res) => {
-    const { id } = req.params
-    const user = await User.findById(id)
+router.get(['/', '/:id'], async(req, res) => {
+    var id = req.params.id
+    var user = null
+    if (!id && req.headers.authorization) {
+        user = await User.findOne({ token: req.headers.authorization })
+        if (!user) {
+            res.status(400).send({
+                success: false,
+                message: 'User not found'
+            })
+            return
+        }
+        id = user._id
+    } else {
+        res.status(400).send({
+            success: false,
+            message: 'User not found'
+        })
+        return
+    }
+    if (!user) {
+        user = await User.findById(id)
+    }
     if (!user) {
         res.status(400).send({
             success: false,
