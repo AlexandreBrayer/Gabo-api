@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import {Schema, model} from "mongoose";
 const { ObjectId } = require('bson');
 
-const GameModel = mongoose.Schema({
+const GameModel = new Schema<IGame>({
     players: {
         type: [ObjectId],
         ref: 'Users',
@@ -35,4 +35,4 @@ const GameModel = mongoose.Schema({
     virtuals: true
 });
 
-module.exports = mongoose.model('Games', GameModel);
+export default model('Game', GameModel);

@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const { ObjectId } = require('bson');
-
-const RoundModel = mongoose.Schema({
+import {Schema, model} from "mongoose";
+import { ObjectId } from 'bson';
+const RoundModel =new Schema<IRound>({
     players: {
         type: [ObjectId],
         ref: 'User',
@@ -45,4 +44,4 @@ const RoundModel = mongoose.Schema({
     virtuals: true
 });
 
-module.exports = mongoose.model('Rounds', RoundModel);
+export default model('Round', RoundModel);
