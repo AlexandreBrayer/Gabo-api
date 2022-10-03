@@ -1,5 +1,4 @@
 require('dotenv').config()
-// const database = require('../database')
 import {Database} from './database'
 import cors from 'cors'
 import bodyParser from "body-parser"
@@ -39,5 +38,5 @@ app.route('/*')
     });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log("My app is listening on port " + port)
 })

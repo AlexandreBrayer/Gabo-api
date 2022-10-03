@@ -7,7 +7,7 @@ export class Database {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       },
-      () => console.log("con")
+      () => console.log("Connected to DB")
     );
   }
 }
