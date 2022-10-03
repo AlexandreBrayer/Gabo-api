@@ -1,10 +1,12 @@
 require('dotenv').config()
-const database = require('./database')
+// const database = require('../database')
+import {Database} from './database'
+import cors from 'cors'
+import bodyParser from "body-parser"
+import express from 'express'
+import path from 'path'
+const database = new Database()
 database.connect()
-const bodyParser = require("body-parser")
-const express = require('express')
-const cors = require('cors');
-const path = require('path')
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -14,19 +16,19 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cors())
 
-const userRoute = require('./routes/user')
+import userRoute from './routes/user'
 app.use('/api/user', userRoute)
 
-const roundRoute = require('./routes/rounds')
+import roundRoute from './routes/rounds'
 app.use('/api/rounds', roundRoute)
 
-const gameRoute = require('./routes/game')
+import gameRoute from './routes/game'
 app.use('/api/game', gameRoute)
 
-const statsRoute = require('./routes/stats')
+import statsRoute from './routes/stats'
 app.use('/api/stats', statsRoute)
 
-const guestRoute = require('./routes/guest')
+import guestRoute from './routes/guest'
 app.use('/api/guest', guestRoute)
 
 app.use(express.static('public'));

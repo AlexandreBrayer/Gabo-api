@@ -35,4 +35,4 @@ const GameModel = mongoose.Schema({
     virtuals: true
 });
 
-module.exports = mongoose.model('Games', GameModel);
+export default mongoose.model('Game', GameModel);

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { ObjectId } = require('bson');
-
 const RoundModel = mongoose.Schema({
     players: {
         type: [ObjectId],
@@ -45,4 +44,4 @@ const RoundModel = mongoose.Schema({
     virtuals: true
 });
 
-module.exports = mongoose.model('Rounds', RoundModel);
+export default mongoose.model('Round', RoundModel);
