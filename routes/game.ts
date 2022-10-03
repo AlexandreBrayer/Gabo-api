@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
-const User = require("../models/User");
-const Game = require("../models/Game");
+import User from "../models/User";
+import Game from "../models/Game";
 
 router.post("/", async (req: Request, res: Response) => {
   const user = await User.findOne({ token: req.headers.authorization });

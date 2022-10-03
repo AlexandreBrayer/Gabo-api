@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
+import User from "../models/User";
 const router = express.Router();
-const User = require("../models/User");
 var sha256 = require("js-sha256");
 
 function genToken(): string {
