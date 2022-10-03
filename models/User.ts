@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
-const { ObjectId } = require("bson");
+import {Schema, model} from "mongoose";
+import { ObjectId } from "bson";
 
-const UserModel = mongoose
-  .Schema({
+const UserModel = new Schema<IUser>({
     name: {
       type: String,
       required: true,
@@ -33,4 +32,4 @@ const UserModel = mongoose
   .set("toJSON", {
     virtuals: true,
   });
-export default mongoose.model("User", UserModel);
+export default model("User", UserModel);

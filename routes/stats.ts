@@ -63,7 +63,7 @@ router.get(["/", "/:id"], async (req: Request, res: Response) => {
       });
       return;
     }
-    id = user._id;
+    id = user._id.toString();
   } else {
     res.status(400).send({
       success: false,
