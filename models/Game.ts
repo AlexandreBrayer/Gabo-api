@@ -4,17 +4,17 @@ const { ObjectId } = require('bson');
 const GameModel = new Schema<IGame>({
     players: {
         type: [ObjectId],
-        ref: 'Users',
+        ref: 'User',
         default: []
     },
     winner: {
         type: ObjectId,
-        ref: 'Users',
+        ref: 'User',
         default: null
     },
     loser: {
         type: ObjectId,
-        ref: 'Users',
+        ref: 'User',
         default: null
     },
     scores: {
@@ -23,7 +23,7 @@ const GameModel = new Schema<IGame>({
     },
     rounds: {
         type: [ObjectId],
-        ref: 'Rounds',
+        ref: 'Round',
         default: []
     },
     timestamp: {

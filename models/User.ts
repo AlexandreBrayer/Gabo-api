@@ -32,4 +32,5 @@ const UserModel = new Schema<IUser>({
   .set("toJSON", {
     virtuals: true,
   });
+  
 export default model("User", UserModel);
