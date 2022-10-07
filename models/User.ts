@@ -28,6 +28,11 @@ const UserModel = new Schema<IUser>({
       type: String,
       default: "user",
     },
+    stats: {
+        type: ObjectId,
+        ref: 'Stat',
+        default: null
+    }
   })
   .set("toJSON", {
     virtuals: true,

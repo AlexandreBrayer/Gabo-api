@@ -17,6 +17,7 @@ interface IUser {
     games : Array<ObjectId>;
     token : string;
     type : string;
+    stats : ObjectId;
 }
 
 interface IRound {
@@ -37,4 +38,16 @@ interface IGame {
     scores: any;
     rounds: Array<ObjectId>;
     timestamp: number;
+}
+
+interface IStats {
+    games: number;
+    wins: number;
+    losses: number;
+    gabo: number;
+    lowpen: number;
+    contreGabo: number;
+    highpen: number;
+    lowDownhill: number;
+    highDownhill: number;
 }
