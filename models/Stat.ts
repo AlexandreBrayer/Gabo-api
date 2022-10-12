@@ -36,7 +36,16 @@ const StatsModel = new Schema<IStats>({
         type: Number,
         default: 0,
     },
+    rounds: {
+        type: Number,
+        default: 0,
+    },
+    totalScore: {
+        type: Number,
+        default: 0,
+    },
+
 }).set("toJSON", {
     virtuals: true,
 });
-export default model("Stats", StatsModel);
+export default model("GaboStats", StatsModel);

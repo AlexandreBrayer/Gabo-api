@@ -50,4 +50,6 @@ interface IStats {
     highpen: number;
     lowDownhill: number;
     highDownhill: number;
+    rounds: number;
+    totalScore: number;
 }

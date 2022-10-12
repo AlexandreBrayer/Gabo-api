@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import User from "../models/User";
+import Stat from "../models/Stat";
 const router = express.Router();
 var sha256 = require("js-sha256");
 
@@ -13,13 +14,16 @@ function genToken(): string {
 router.post("/register", async (req: Request, res: Response) => {
     const { name, password, email }: RegisterPayload = req.body;
     const token: string = genToken();
+    const stat = new Stat({});
     const user = new User({
         name,
         password: sha256(password),
         token,
         email,
+        stats: stat._id,
     });
     try {
+        await stat.save();
         await user.save();
         res.status(201).send({
             success: true,
