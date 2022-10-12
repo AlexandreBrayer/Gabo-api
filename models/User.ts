@@ -23,6 +23,7 @@ const UserModel = new Schema<IUser>({
     },
     token: {
         type: String,
+        required: true,
     },
     type: {
         type: String,
