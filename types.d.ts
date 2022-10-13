@@ -1,4 +1,4 @@
-declare module 'cors';
+declare module "cors";
 interface RegisterPayload {
     name?: string;
     password?: string;
@@ -11,16 +11,17 @@ interface LoginPayload {
 }
 
 interface IUser {
-    name : string;
-    email : string;
-    password : string;
-    games : Array<ObjectId>;
-    token : string;
-    type : string;
+    name: string;
+    email: string;
+    password: string;
+    games: Array<ObjectId>;
+    token: string;
+    type: string;
+    stats: ObjectId;
 }
 
 interface IRound {
-    players : Array<ObjectId>;
+    players: Array<ObjectId>;
     scores: any;
     gabo: Array<ObjectId>;
     lowpen: Array<ObjectId>;
@@ -31,10 +32,24 @@ interface IRound {
 }
 
 interface IGame {
-    players : Array<ObjectId>;
-    winner : ObjectId;
-    loser : ObjectId;
+    players: Array<ObjectId>;
+    winner: ObjectId;
+    loser: ObjectId;
     scores: any;
     rounds: Array<ObjectId>;
     timestamp: number;
+}
+
+interface IStats {
+    games: number;
+    wins: number;
+    losses: number;
+    gabo: number;
+    lowpen: number;
+    contreGabo: number;
+    highpen: number;
+    lowDownhill: number;
+    highDownhill: number;
+    rounds: number;
+    totalScore: number;
 }
