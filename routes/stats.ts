@@ -55,6 +55,7 @@ router.get(["/", "/:id"], async (req: Request, res: Response) => {
             lowDownhills: stats.lowDownhill,
             highDownhills: stats.highDownhill,
             totalGames: stats.games,
+            rounds: stats.rounds,
         },
     });
 });

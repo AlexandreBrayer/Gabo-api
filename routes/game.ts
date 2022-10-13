@@ -1,7 +1,58 @@
 import express, { Request, Response } from "express";
+import { ObjectId } from "bson";
 const router = express.Router();
 import User from "../models/User";
 import Game from "../models/Game";
+import Stat from "../models/Stat";
+import Round from "../models/Round";
+
+async function updateStats(gameId: ObjectId, userId: ObjectId) {
+    const game = await Game.findById(gameId);
+    const user = await User.findById(userId);
+    if (!game || !user) {
+        return;
+    }
+    const stats = await Stat.findById(user.stats);
+    if (!stats) {
+        return;
+    }
+    if (game.winner === user._id) {
+        stats.wins++;
+    } else if (game.loser === user._id) {
+        stats.losses++;
+    }
+    stats.games++;
+    stats.rounds += game.rounds.length;
+    console.log(game.scores);
+    const score = game.scores[game.scores.length - 1];
+    const userScore = score[userId.toString()];
+    stats.totalScore += userScore;
+    for (const roundId of game.rounds) {
+        const round = await Round.findById(roundId);
+        if (!round) {
+            continue;
+        }
+        if (round.gabo.includes(userId)) {
+            stats.gabo++;
+        }
+        if (round.lowpen.includes(userId)) {
+            stats.lowpen++;
+        }
+        if (round.contreGabo.includes(userId)) {
+            stats.contreGabo++;
+        }
+        if (round.highpen.includes(userId)) {
+            stats.highpen++;
+        }
+        if (round.lowDownhill.includes(userId)) {
+            stats.lowDownhill++;
+        }
+        if (round.highDownhill.includes(userId)) {
+            stats.highDownhill++;
+        }
+    }
+    await stats.save();
+}
 
 router.post("/", async (req: Request, res: Response) => {
     const user = await User.findOne({ token: req.headers.authorization });
@@ -20,6 +71,10 @@ router.post("/", async (req: Request, res: Response) => {
             { _id: { $in: game.players } },
             { $push: { games: newGame._id } }
         );
+        //update stats for each player
+        for (const player of game.players) {
+            await updateStats(newGame._id, player);
+        }
         res.status(201).send({
             success: true,
             game: newGame,
